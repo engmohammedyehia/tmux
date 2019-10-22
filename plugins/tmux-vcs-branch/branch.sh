@@ -112,7 +112,7 @@ git_status() {
   
   local branch_has_changes=$(git diff-index --name-only HEAD --)
   local change_color='#94a96b'
-  local label_color='#ffffff'
+  local label_color='#000000'
   
   if [ -n "$branch_has_changes" ]; then 
     change_color='#ffc107'
