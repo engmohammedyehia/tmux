@@ -10,7 +10,7 @@ git_status() {
   local commit_name=$(git rev-parse --short=8 HEAD)
   local commit_icon=$'\uE729'
   local commitIcon=$(_decode_unicode_escapes "${commit_icon-''}")
-  local lock_icon=$'\UF023'
+  local lock_icon=$'\Uf83d'
   local lockIcon=$(_decode_unicode_escapes "${lock_icon-''}")
 
   local branch_has_changes=$(git diff-index --name-only HEAD --)
