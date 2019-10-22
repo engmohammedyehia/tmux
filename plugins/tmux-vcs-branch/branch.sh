@@ -111,8 +111,8 @@ git_status() {
   local remoteChangesIcon=$(+vi-git-aheadbehind)
   
   local branch_has_changes=$(git diff-index --name-only HEAD --)
-  local change_color='#0f5f86'
-  local label_color='#ffffff'
+  local change_color='#00a2fa'
+  local label_color='#000000'
   
   if [ ${#branch_name} -gt "20" ]; then
     branch_name="${branch_name:0:20}..."
@@ -120,7 +120,6 @@ git_status() {
 
   if [ -n "$branch_has_changes" ]; then 
     change_color='#ffc107'
-    label_color='#000000'
   fi
 
   if [[ -n $branch_name ]]; then

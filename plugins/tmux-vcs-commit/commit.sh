@@ -23,7 +23,7 @@ git_status() {
   fi
 
   if [[ -n $commit_name ]]; then
-    printf "#[fg=$change_color,bg=#121212,nobold]#[fg=$label_color,bg=$change_color,nobold] $commitIcon $commit_name #[fg=#0f5f86,bg=$change_color,nobold]#[fg=#ffffff,bg=#0f5f86,nobold] $(whoami) $lockIcon "
+    printf "#[fg=$change_color,bg=#121212,nobold]#[fg=$label_color,bg=$change_color,nobold] $commitIcon $commit_name #[fg=#00a2fa,bg=$change_color,nobold]#[fg=#000000,bg=#00a2fa,nobold] $(whoami) $lockIcon "
   else 
     printf "#[fg=colour252,bg=#121212,nobold]#[fg=colour233,bg=colour252,nobold] $(whoami) $lockIcon "
   fi
