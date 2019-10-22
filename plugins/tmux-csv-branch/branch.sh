@@ -63,6 +63,24 @@ function +vi-git-stash() {
   fi
 }
 
+function +vi-git-unstaged() {
+  local modified=$(git ls-files --others --exclude-standard --modified)
+  local icon=$'\uF06A'
+  local theIcon=$(_decode_unicode_escapes "${icon-''}")
+  if [ "$modified" ]; then
+    printf "$theIcon "
+  fi
+}
+
+function +vi-git-staged() {
+  local staged=$(git diff --cached)
+  local icon=$'\uF055'
+  local theIcon=$(_decode_unicode_escapes "${icon-''}")
+  if [ "$staged" ]; then
+    printf "$theIcon "
+  fi
+}
+
 git_status() {
   
   local branch_name=$(git rev-parse --abbrev-ref HEAD)
@@ -73,6 +91,8 @@ git_status() {
   local tagIcon=$(+vi-git-tagname)
   local vendorIcon=$(+vi-vcs-detect-changes)
   local stashIcon=$(+vi-git-stash)
+  local unstagesIcon=$(+vi-git-unstaged)
+  local stagedIcon=$(+vi-git-staged)
   
   local branch_has_changes=$(git diff-index --name-only HEAD --)
   local change_color='#0f5f86'
@@ -84,7 +104,7 @@ git_status() {
   fi
 
   if [[ -n $branch_name ]]; then
-    printf " #[fg=colour252,bg=$change_color,nobold] #[fg=$label_color,bg=$change_color,nobold]$vendorIcon $branchIcon ${branch_name:0:20}... $tagIcon$vcsUntrackedIcon$stashIcon#[fg=$change_color,bg=colour233]"
+    printf " #[fg=colour252,bg=$change_color,nobold] #[fg=$label_color,bg=$change_color,nobold]$vendorIcon $branchIcon ${branch_name:0:20}... $tagIcon$stagedIcon$unstagesIcon$vcsUntrackedIcon$stashIcon#[fg=$change_color,bg=colour233]"
   else 
     printf " #[fg=colour252,bg=colour233,nobold]"
   fi
