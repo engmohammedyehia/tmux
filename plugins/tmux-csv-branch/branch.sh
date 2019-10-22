@@ -81,6 +81,21 @@ function +vi-git-staged() {
   fi
 }
 
+function +vi-git-aheadbehind() {
+    local ahead behind
+    local -a gitstatus
+
+    ahead=$(command git rev-list --count "${hook_com[branch]}"@{upstream}..HEAD 2>/dev/null)
+    local outgoing_icon=$'\uF01B '
+    local outgoingChangesIcon=$(_decode_unicode_escapes "${outgoing_icon-''}")
+    (( ahead )) && printf "$outgoingChangesIcon${ahead// /} "
+
+    behind=$(command git rev-list --count HEAD.."${hook_com[branch]}"@{upstream} 2>/dev/null)
+    local incoming_icon=$'\uF01A '
+    local incomingChangesIcon=$(_decode_unicode_escapes "${incoming_icon-''}")
+    (( behind )) && printf "$incomingChangesIcon${behind// /} "
+}
+
 git_status() {
   
   local branch_name=$(git rev-parse --abbrev-ref HEAD)
@@ -93,6 +108,7 @@ git_status() {
   local stashIcon=$(+vi-git-stash)
   local unstagesIcon=$(+vi-git-unstaged)
   local stagedIcon=$(+vi-git-staged)
+  local remoteChangesIcon=$(+vi-git-aheadbehind)
   
   local branch_has_changes=$(git diff-index --name-only HEAD --)
   local change_color='#0f5f86'
@@ -104,7 +120,7 @@ git_status() {
   fi
 
   if [[ -n $branch_name ]]; then
-    printf " #[fg=colour252,bg=$change_color,nobold] #[fg=$label_color,bg=$change_color,nobold]$vendorIcon $branchIcon ${branch_name:0:20}... $tagIcon$stagedIcon$unstagesIcon$vcsUntrackedIcon$stashIcon#[fg=$change_color,bg=colour233]"
+    printf " #[fg=colour252,bg=$change_color,nobold] #[fg=$label_color,bg=$change_color,nobold]$vendorIcon $branchIcon ${branch_name:0:20}... $tagIcon$stagedIcon$unstagesIcon$vcsUntrackedIcon$remoteChangesIcon$stashIcon#[fg=$change_color,bg=colour233]"
   else 
     printf " #[fg=colour252,bg=colour233,nobold]"
   fi
