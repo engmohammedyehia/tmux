@@ -64,7 +64,7 @@ function +vi-git-stash() {
 }
 
 function +vi-git-unstaged() {
-  local modified=$(git ls-files --others --exclude-standard --modified)
+  local modified=$(git ls-files --exclude-standard --modified)
   local icon=$'\uF06A'
   local theIcon=$(_decode_unicode_escapes "${icon-''}")
   if [ "$modified" ]; then
