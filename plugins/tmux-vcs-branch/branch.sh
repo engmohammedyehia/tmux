@@ -114,13 +114,17 @@ git_status() {
   local change_color='#0f5f86'
   local label_color='#ffffff'
   
+  if [ ${#branch_name} -gt "20" ]; then
+    branch_name="${branch_name:0:20}..."
+  fi
+
   if [ -n "$branch_has_changes" ]; then 
     change_color='#ffc107'
     label_color='#000000'
   fi
 
   if [[ -n $branch_name ]]; then
-    printf " #[fg=colour252,bg=$change_color,nobold] #[fg=$label_color,bg=$change_color,nobold]$vendorIcon $branchIcon ${branch_name:0:20}... $tagIcon$stagedIcon$unstagesIcon$vcsUntrackedIcon$remoteChangesIcon$stashIcon#[fg=$change_color,bg=colour233]"
+    printf " #[fg=colour252,bg=$change_color,nobold] #[fg=$label_color,bg=$change_color,nobold]$vendorIcon $branchIcon $branch_name $tagIcon$stagedIcon$unstagesIcon$vcsUntrackedIcon$remoteChangesIcon$stashIcon#[fg=$change_color,bg=colour233]"
   else 
     printf " #[fg=colour252,bg=colour233,nobold]"
   fi
