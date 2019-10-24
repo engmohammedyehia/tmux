@@ -98,7 +98,7 @@ function +vi-git-aheadbehind() {
 
 git_status() {
   
-  local branch_name=$(git rev-parse --abbrev-ref HEAD)
+  local branch_name=$(git symbolic-ref --short HEAD)
   local branch_icon=$'\uF126'
   local branchIcon=$(_decode_unicode_escapes "${branch_icon-''}")
 
@@ -110,7 +110,6 @@ git_status() {
   local stagedIcon=$(+vi-git-staged)
   local remoteChangesIcon=$(+vi-git-aheadbehind)
   
-  local branch_has_changes=$(git diff-index --name-only HEAD --)
   local change_color='#94a96b'
   local label_color='#000000'
   
@@ -118,7 +117,7 @@ git_status() {
     branch_name="${branch_name:0:20}..."
   fi
 
-  if [ -n "$branch_has_changes" ]; then 
+  if [ "$unstagesIcon" -o "$stagedIcon" ]; then 
     change_color='#ffc107'
   fi
 
