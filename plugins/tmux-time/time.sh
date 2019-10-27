@@ -9,7 +9,7 @@ main() {
   local time=$(date | cut -d ' ' -f 4)
   local time_icon=$'\uF017 '
   local timeIcon=$(_decode_unicode_escapes "${time_icon-''}")
-  printf "$timeIcon${time:0:5}"
+  printf "$timeIcon${time:0:5} "
 }
 
 main

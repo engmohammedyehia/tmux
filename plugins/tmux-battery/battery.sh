@@ -19,7 +19,7 @@ main() {
   else 
     batteryStatusToShowColor="#8e8e8e"
   fi
-  printf "#[fg=#212121,bg=#121212]#[fg=$batteryStatusToShowColor,bg=#212121] $batteryIcon #[fg=#8e8e8e,bg=#212121]$battery%"
+  printf "#[fg=#212121,bg=#121212]#[fg=$batteryStatusToShowColor,bg=#212121] $batteryIcon #[fg=#8e8e8e,bg=#212121]$battery% #[fg=#121212,bg=#212121]#[fg=#8e8e8e,bg=#121212,nobold] "
 }
 
 main

@@ -17,3 +17,12 @@ else
     printf '%b' "$*"
   }
 fi
+
+function updatePane() {
+  local option="$1"
+	local plugin_placeholder="$2"
+  local replaced_with="$3"
+  pane=$(tmux show-option -gqv "$option")
+  new_pane="${pane//$plugin_placeholder/$replaced_with}"
+  tmux set-option -gq "$option" "$new_pane"
+}
